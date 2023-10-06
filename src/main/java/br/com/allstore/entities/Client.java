@@ -3,6 +3,8 @@ package br.com.allstore.entities;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "TB_CH_CLIENT")
@@ -16,6 +18,10 @@ public class Client implements Serializable {
     private String lastName;
     private String document;
     private Float balance;
+
+    @ManyToMany
+    @JoinTable(name = "TB_CH_CLIENTS_BOOKS")
+    private List<Book> books = new ArrayList<>();
 
 
     public Client() {
@@ -67,6 +73,14 @@ public class Client implements Serializable {
 
     public void setBalance(Float balance) {
         this.balance = balance;
+    }
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
     }
 
     @Override
