@@ -1,7 +1,9 @@
 package br.com.allstore.controllers;
 
+import br.com.allstore.dto.ClientDTO;
 import br.com.allstore.entities.Client;
 import br.com.allstore.services.ClientService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -20,15 +22,14 @@ public class ClientController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Client> findById (@PathVariable Integer id) throws Exception {
-        Client obj =service.findBy(id);
+        Client obj =service.findById(id);
         return ResponseEntity.ok().body(obj);
     }
 
     @PostMapping
-    public ResponseEntity<Void> clientInsert(@RequestBody Client obj){
-        obj = service.insert(obj);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}").buildAndExpand(obj.getId()).toUri();
-        return ResponseEntity.created(uri).build();
+    public ResponseEntity<Client> clientInsert(@RequestBody ClientDTO objDTO){
+        Client obj = service.fromDTO(objDTO);
+        obj =  service.insert(obj);
+        return new ResponseEntity<>(obj, HttpStatus.CREATED);
     }
 }

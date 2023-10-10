@@ -1,5 +1,6 @@
 package br.com.allstore.services;
 
+import br.com.allstore.dto.ClientDTO;
 import br.com.allstore.entities.Client;
 import br.com.allstore.repositories.ClientRepository;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,7 @@ public class ClientService {
         this.repo = repo;
     }
 
-    public Client findBy(Integer id) throws Exception {
+    public Client findById(Integer id) throws Exception {
         Optional<Client> obj = repo.findById(id);
 
         return obj.orElseThrow(() -> new Exception(
@@ -25,9 +26,12 @@ public class ClientService {
     }
 
     public Client insert(Client obj){
-        obj.setId(null);
         obj = repo.save(obj);
         return obj;
+    }
+
+    public Client fromDTO(ClientDTO clientDTO){
+        return new Client(null, clientDTO.firstName(), clientDTO.lastName(), clientDTO.document(), clientDTO.balance());
     }
 
 }
