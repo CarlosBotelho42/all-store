@@ -1,10 +1,14 @@
 package br.com.allstore.entities;
 
+import br.com.allstore.dto.ClientDTO;
+import br.com.allstore.dto.UpdateClientBalanceDTO;
+import br.com.allstore.dto.UpdateClientDTO;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "TB_CH_CLIENT")
@@ -12,10 +16,9 @@ public class Client implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
 
-    private String firstName;
-    private String lastName;
+    private String name;
     private String document;
     private Float balance;
 
@@ -23,40 +26,31 @@ public class Client implements Serializable {
     @JoinTable(name = "TB_CH_CLIENTS_BOOKS")
     private List<Book> books = new ArrayList<>();
 
-
     public Client() {
     }
 
-    public Client(Integer id, String firstName, String lastName, String document, Float balance) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.document = document;
-        this.balance = balance;
+    public Client(ClientDTO dto){
+        this.name = dto.name();
+        this.document = dto.document();
+        this.balance = dto.balance();
     }
 
-    public Integer getId() {
-        return id;
+    public void updateData(UpdateClientDTO dto) {
+        this.name = dto.name();
+        this.document = dto.document();
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void updateBalance(UpdateClientBalanceDTO dto){
+
+        this.balance += dto.balance();
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDocument() {
@@ -67,12 +61,12 @@ public class Client implements Serializable {
         this.document = document;
     }
 
-    public Float getBalance() {
-        return balance;
-    }
-
     public void setBalance(Float balance) {
         this.balance = balance;
+    }
+
+    public Float getBalance() {
+        return balance;
     }
 
     public List<Book> getBooks() {
@@ -84,14 +78,16 @@ public class Client implements Serializable {
     }
 
     @Override
-    public String toString() {
-        return "Clients{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", document='" + document + '\'' +
-                ", balance=" + balance +
-                '}';
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        Client client = (Client) object;
+        return Objects.equals(id, client.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
 

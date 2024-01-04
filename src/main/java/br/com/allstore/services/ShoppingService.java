@@ -20,7 +20,7 @@ public class ShoppingService {
         this.bookRepository = bookRepository;
     }
 
-    public boolean buyBook(Integer clientId, Integer bookId){
+    public boolean buyBook(Long clientId, Long bookId){
 
         Optional<Client> clientOptional = clientRepository.findById(clientId);
         Optional<Book> bookOptional = bookRepository.findById(bookId);

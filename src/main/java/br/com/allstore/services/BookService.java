@@ -1,9 +1,10 @@
 package br.com.allstore.services;
 
 import br.com.allstore.dto.BookDTO;
+import br.com.allstore.dto.UpdateBookDTO;
 import br.com.allstore.entities.Book;
+import br.com.allstore.exception.MyValidationException;
 import br.com.allstore.repositories.BookRepository;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -12,27 +13,26 @@ import java.util.Optional;
 public class BookService {
 
 
-    private final BookRepository repo;
+    private final BookRepository repository;
 
     public BookService(BookRepository repo) {
-        this.repo = repo;
+        this.repository = repo;
     }
 
-    public Book findById(Integer id) throws Exception{
-        Optional<Book> obj = repo.findById(id);
 
-        return obj.orElseThrow(() -> new Exception(
-                "Objeto não encontrado! Id: " + id
-        ));
+    public void bookRegister(BookDTO dto){
+        repository.save(new Book(dto));
     }
 
-    public Book insert(Book obj){
-        obj = repo.save(obj);
-        return obj;
+    public Book findBook(Long id) {
+        Optional<Book> optional;
+        optional = repository.findById(id);
+
+        return optional.orElseThrow(() -> new MyValidationException("Livro não encontrado!!"));
     }
 
-    public Book fromDTO(BookDTO bookDTO){
-        return new Book(null, bookDTO.name(), bookDTO.author(), bookDTO.price());
+    public void bookUpdate(UpdateBookDTO dto) {
+        Book book = repository.getReferenceById(dto.id());
+        book.updateData(dto);
     }
-
 }

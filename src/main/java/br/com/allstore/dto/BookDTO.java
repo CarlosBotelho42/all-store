@@ -1,4 +1,16 @@
 package br.com.allstore.dto;
 
-public record BookDTO(String name, String author, Float price) {
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
+public record BookDTO(
+
+        @NotBlank
+        String name,
+
+        @NotBlank
+        String author,
+
+        @NotNull
+        Float price) {
 }

@@ -1,5 +1,7 @@
 package br.com.allstore.entities;
 
+import br.com.allstore.dto.BookDTO;
+import br.com.allstore.dto.UpdateBookDTO;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -10,7 +12,7 @@ public class Book implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
 
     private String name;
     private String author;
@@ -20,19 +22,23 @@ public class Book implements Serializable {
     public Book() {
     }
 
-    public Book(Integer id, String name, String author, Float price) {
-        this.id = id;
-        this.name = name;
-        this.author = author;
-        this.price = price;
+    public Book(BookDTO dto) {
+        this.name = dto.name();
+        this.author = dto.author();
+        this.price = dto.price();
     }
 
+    public void updateData(UpdateBookDTO dto) {
+        this.name = dto.name();
+        this.author = dto.author();
+        this.price = dto.price();
+    }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -69,5 +75,6 @@ public class Book implements Serializable {
                 ", price=" + price +
                 '}';
     }
+
 
 }

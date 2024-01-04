@@ -19,7 +19,7 @@ public class ShoppingController {
     }
 
     @PostMapping(value = "/book")
-    public ResponseEntity<String> BookBuy(@RequestParam Integer clientId, @RequestParam Integer bookId){
+    public ResponseEntity<String> BookBuy(@RequestParam Long clientId, @RequestParam Long bookId){
 
         if(shoppingService.buyBook(clientId, bookId)){
             return ResponseEntity.ok("Compra realizada, parabens!!!!");

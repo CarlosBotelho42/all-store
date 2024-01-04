@@ -1,18 +1,18 @@
 package br.com.allstore.dto;
 
 import jakarta.validation.constraints.NotBlank;
-import org.hibernate.validator.constraints.br.CPF;
+import jakarta.validation.constraints.NotNull;
 
-public record ClientDTO(
+public record UpdateBookDTO(
 
         Long id,
 
         @NotBlank
         String name,
 
-        @CPF
         @NotBlank
-        String document,
+        String author,
 
-        Float balance) {
+        @NotNull
+        Float price) {
 }

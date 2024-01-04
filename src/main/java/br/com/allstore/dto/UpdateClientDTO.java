@@ -1,10 +1,11 @@
 package br.com.allstore.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.br.CPF;
 
-public record ClientDTO(
-
+public record UpdateClientDTO(
+        @NotNull
         Long id,
 
         @NotBlank
@@ -12,7 +13,6 @@ public record ClientDTO(
 
         @CPF
         @NotBlank
-        String document,
-
-        Float balance) {
+        String document
+) {
 }
