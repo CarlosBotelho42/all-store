@@ -4,8 +4,8 @@
 
 ## Como rodar a aplicação
 
-- Pode rodar dentro da pasta ruiz inicializando o print com o maven: mvn spring-boot:run
-- Tambem pode rodar em qualquer direto dando o java -jar < caminho ate o arquivo.jar > all-store-0.0.1-SNAPSHOT.jar
+- Pode rodar dentro da pasta raiz, inicializando o projeto com o maven: mvn spring-boot:run
+- Tambem pode rodar em qualquer diretorio dando o comando java -jar < caminho ate o arquivo.jar > all-store-0.0.1-SNAPSHOT.jar
 
 
 ## Funcionalidades
