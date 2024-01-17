@@ -1,5 +1,7 @@
 package br.com.allstore.services;
 
+
+
 import br.com.allstore.dto.ClientDTO;
 import br.com.allstore.dto.UpdateClientBalanceDTO;
 import br.com.allstore.dto.UpdateClientDTO;
